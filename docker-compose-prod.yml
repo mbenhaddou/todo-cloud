@@ -1,0 +1,69 @@
+version: "3"
+
+services:
+
+  todo-postgres:
+    container_name: todo-postgres
+    image: mbenhaddou/todo-postgres:1.0
+
+  todo-cache-ingestion:
+    build:
+      dockerfile: ../Dockerfile.nodejs.prod
+    image: mbenhaddou/todo-cache-ingestion:1.0
+
+
+  todo-cache-service:
+    build:
+      dockerfile: ../Dockerfile.nodejs.prod
+    image: mbenhaddou/todo-cache-service:1.0
+
+  todo-search-ingestion:
+    build:
+      dockerfile: ../Dockerfile.nodejs.prod
+    image: mbenhaddou/todo-search-ingestion:1.0
+    command: sh /home/node/app/start.sh
+
+  todo-search-service:
+    build:
+      dockerfile: ../Dockerfile.nodejs.prod
+    image: mbenhaddou/todo-search-service:1.0
+    command: sh /home/node/app/start.sh
+
+  todo-storage-ingestion:
+    build:
+      dockerfile: ../Dockerfile.nodejs.prod
+    image: mbenhaddou/todo-storage-ingestion:1.0
+    command: sh /home/node/app/start.sh
+
+  todo-storage-service:
+    build:
+      dockerfile: ../Dockerfile.nodejs.prod
+    image: mbenhaddou/todo-storage-service:1.0
+
+  todo-api-gateway:
+    build:
+      dockerfile: ../Dockerfile.nodejs.prod
+    image: mbenhaddou/todo-api-gateway:1.0
+    command: sh /home/node/app/start.sh
+
+  todo-proxy:
+    build:
+      dockerfile: Dockerfile.prod
+    image: mbenhaddou/todo-proxy:1.0
+
+
+  todo-view:
+    build:
+      dockerfile: Dockerfile.prod
+    image: mbenhaddou/todo-view:1.0
+    ports:
+      - 4201:8080
+
+
+
+
+
+volumes:
+  postgres-data:
+  elastic-data:
+
