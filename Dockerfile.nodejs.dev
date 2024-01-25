@@ -1,7 +1,7 @@
 # Development image with all the Node.js stuff in it
 FROM node:8.15.1
 
-WORKDIR "/app"
+WORKDIR /app
 
 COPY ./package.json ./
 
